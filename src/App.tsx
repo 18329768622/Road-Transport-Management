@@ -110,15 +110,21 @@ const getPageConfig = (key: PageKey, navigate: (k: string) => void): PageConfig 
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageKey>('dashboard')
+  const [currentRole, setCurrentRole] = useState('R001')
 
   const navigate = (key: PageKey) => setActivePage(key)
+
+  const handleRoleChange = (roleId: string) => {
+    setCurrentRole(roleId)
+    setActivePage('dashboard')
+  }
 
   const pageConfig = getPageConfig(activePage, navigate)
   const PageComponent = pageConfig.component
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-gray-100">
-      <Sidebar active={activePage} onSelect={navigate} />
+      <Sidebar active={activePage} onSelect={navigate} currentRole={currentRole} onRoleChange={handleRoleChange} />
       <div className="flex flex-col flex-1 overflow-hidden min-w-0">
         <Header breadcrumbs={pageConfig.breadcrumbs} onBreadcrumbClick={navigate} onNavigate={navigate} />
         <main className="flex-1 overflow-hidden">
