@@ -137,92 +137,6 @@ const qualityTrend = [
   { month: '4月', score: 88.3 }, { month: '5月', score: 89.8 }, { month: '6月', score: 91.2 },
 ]
 
-// ────────── Role & Permission Data ──────────
-
-type RoleCategory = '管理层' | '行政管理' | '执法人员' | '市场主体' | '从业人员' | '第三方机构' | '社会组织' | '社会公众'
-
-interface RoleItem {
-  id: string; name: string; level: string; levelNum: number
-  category: RoleCategory; userCount: number; description: string
-  modules: string[]; canCreate: boolean; canEdit: boolean; canDelete: boolean; canQuery: boolean
-  cardColor: string; badgeColor: string
-}
-
-const roles: RoleItem[] = [
-  { id: 'R001', name: '系统管理员', level: '系统级', levelNum: 0, category: '管理层', userCount: 3,
-    description: '系统整体运行维护、用户角色管理及权限分配，拥有最高操作权限',
-    modules: ['系统配置', '用户管理', '权限分配', '日志审计', '数据备份', '参数设置'],
-    canCreate: true, canEdit: true, canDelete: true, canQuery: true,
-    cardColor: 'border-red-200 bg-red-50', badgeColor: 'bg-red-100 text-red-700 border-red-200' },
-  { id: 'R002', name: '省级管理员', level: '省级', levelNum: 1, category: '行政管理', userCount: 12,
-    description: '省内许可审批、质量信誉考核公告、车辆审验公告、数据上报',
-    modules: ['许可审批', '质量信誉考核', '车辆审验公告', '数据上报', '统计分析', '公告管理'],
-    canCreate: true, canEdit: true, canDelete: false, canQuery: true,
-    cardColor: 'border-blue-200 bg-blue-50', badgeColor: 'bg-blue-100 text-blue-700 border-blue-200' },
-  { id: 'R003', name: '市级管理员', level: '市级', levelNum: 2, category: '行政管理', userCount: 48,
-    description: '业户许可、车辆管理、站场许可初审、行业监督检查',
-    modules: ['业户许可', '车辆管理', '站场许可初审', '行业监督检查', '许可统计'],
-    canCreate: true, canEdit: true, canDelete: false, canQuery: true,
-    cardColor: 'border-indigo-200 bg-indigo-50', badgeColor: 'bg-indigo-100 text-indigo-700 border-indigo-200' },
-  { id: 'R004', name: '县级管理员', level: '县级', levelNum: 3, category: '行政管理', userCount: 186,
-    description: '受理、审查、上报、发证、档案管理、业户日常监管',
-    modules: ['业务受理', '审查上报', '发证管理', '档案管理', '日常监管', '信息查询'],
-    canCreate: true, canEdit: true, canDelete: false, canQuery: true,
-    cardColor: 'border-gov-200 bg-gov-50', badgeColor: 'bg-gov-100 text-gov-700 border-gov-200' },
-  { id: 'R005', name: '乡镇管理员', level: '乡镇级', levelNum: 4, category: '行政管理', userCount: 324,
-    description: '协助县级管理、源头管理、上门服务、信息采集',
-    modules: ['源头管理', '上门服务', '信息采集', '辅助审查', '基础查询'],
-    canCreate: false, canEdit: true, canDelete: false, canQuery: true,
-    cardColor: 'border-teal-200 bg-teal-50', badgeColor: 'bg-teal-100 text-teal-700 border-teal-200' },
-  { id: 'R006', name: '检查站执法人员', level: '执法级', levelNum: 2, category: '执法人员', userCount: 89,
-    description: '路面监督检查、违法行为处理、证据采集、案件办理',
-    modules: ['路面检查', '违法处理', '证据采集', '案件办理', '执法记录', '移动执法'],
-    canCreate: true, canEdit: true, canDelete: false, canQuery: true,
-    cardColor: 'border-orange-200 bg-orange-50', badgeColor: 'bg-orange-100 text-orange-700 border-orange-200' },
-  { id: 'R007', name: '道路运输业户', level: '企业级', levelNum: 5, category: '市场主体', userCount: 2856,
-    description: '货运/客运/危货/维修/培训/外商投资业户的网上申报、年审、查询',
-    modules: ['网上申报', '年审办理', '证件查询', '车辆管理', '人员管理', '违规记录查询'],
-    canCreate: false, canEdit: true, canDelete: false, canQuery: true,
-    cardColor: 'border-emerald-200 bg-emerald-50', badgeColor: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
-  { id: 'R008', name: '个体运输户', level: '个体级', levelNum: 5, category: '市场主体', userCount: 1542,
-    description: '个体经营户车辆、人员的业务办理和查询',
-    modules: ['业务办理', '信息查询', '车辆登记', '人员管理'],
-    canCreate: false, canEdit: true, canDelete: false, canQuery: true,
-    cardColor: 'border-green-200 bg-green-50', badgeColor: 'bg-green-100 text-green-700 border-green-200' },
-  { id: 'R009', name: '从业人员', level: '个人级', levelNum: 6, category: '从业人员', userCount: 45680,
-    description: '客货运驾驶员、危险货运驾驶/装卸/押运人员、维修技术人员的资格证申办、诚信记录查询',
-    modules: ['资格证申办', '诚信记录查询', '证件信息查询', '培训记录'],
-    canCreate: false, canEdit: false, canDelete: false, canQuery: true,
-    cardColor: 'border-cyan-200 bg-cyan-50', badgeColor: 'bg-cyan-100 text-cyan-700 border-cyan-200' },
-  { id: 'R010', name: '检验检测机构', level: '机构级', levelNum: 5, category: '第三方机构', userCount: 128,
-    description: '机动车综合性能检测业务的报告上传、结果查询',
-    modules: ['检测报告上传', '结果查询', '检测机构管理', '数据上报'],
-    canCreate: true, canEdit: true, canDelete: false, canQuery: true,
-    cardColor: 'border-purple-200 bg-purple-50', badgeColor: 'bg-purple-100 text-purple-700 border-purple-200' },
-  { id: 'R011', name: '行业协会', level: '协会级', levelNum: 5, category: '社会组织', userCount: 36,
-    description: '行业自律、信息统计、诚信评价辅助',
-    modules: ['行业自律管理', '信息统计', '诚信评价辅助', '政策咨询'],
-    canCreate: false, canEdit: false, canDelete: false, canQuery: true,
-    cardColor: 'border-amber-200 bg-amber-50', badgeColor: 'bg-amber-100 text-amber-700 border-amber-200' },
-  { id: 'R012', name: '社会公众', level: '公众级', levelNum: 7, category: '社会公众', userCount: 0,
-    description: '政务公开信息查询、投诉举报、政策咨询',
-    modules: ['政务公开查询', '投诉举报', '政策咨询', '许可信息公示'],
-    canCreate: false, canEdit: false, canDelete: false, canQuery: true,
-    cardColor: 'border-gray-200 bg-gray-50', badgeColor: 'bg-gray-100 text-gray-600 border-gray-200' },
-]
-
-const categoryFilters: { key: string; label: string }[] = [
-  { key: '全部', label: '全部角色' },
-  { key: '管理层', label: '管理层' },
-  { key: '行政管理', label: '行政管理' },
-  { key: '执法人员', label: '执法人员' },
-  { key: '市场主体', label: '市场主体' },
-  { key: '从业人员', label: '从业人员' },
-  { key: '第三方机构', label: '第三方机构' },
-  { key: '社会组织', label: '社会组织' },
-  { key: '社会公众', label: '社会公众' },
-]
-
 // ──────────────────────────── Component ────────────────────────────
 
 export default function SystemManagement({ initialTab }: { initialTab?: SMTab }) {
@@ -262,12 +176,14 @@ export default function SystemManagement({ initialTab }: { initialTab?: SMTab })
 // ──────────────────────── Tab 1: Org & Personnel ────────────────────────
 
 function OrgPersonnel() {
-  const [subtab, setSubtab] = useState<'角色权限管理' | '人员档案' | '系统监控'>('角色权限管理')
+  const [subtab, setSubtab] = useState<'机构档案' | '人员技能' | '系统监控'>('机构档案')
+  const [selectedDept, setSelectedDept] = useState<typeof departments[0] | null>(null)
+  const [selectedStaff, setSelectedStaff] = useState<typeof staffList[0] | null>(null)
 
   return (
     <div className="space-y-4">
       <div className="flex gap-2 bg-gray-100 rounded-lg p-1 w-fit">
-        {(['角色权限管理', '人员档案', '系统监控'] as const).map(t => (
+        {(['机构档案', '人员技能', '系统监控'] as const).map(t => (
           <button key={t} onClick={() => setSubtab(t)}
             className={`px-4 py-1.5 text-xs font-medium rounded-md transition-all ${subtab === t ? 'bg-white text-gov-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
             {t}
@@ -275,256 +191,228 @@ function OrgPersonnel() {
         ))}
       </div>
 
-      {subtab === '角色权限管理' && <RolePermissions />}
-      {subtab === '人员档案' && <PersonnelArchive />}
-      {subtab === '系统监控' && <SystemMonitor />}
-    </div>
-  )
-}
-
-// ────── Role Permission Management ──────
-
-function RolePermissions() {
-  const [categoryFilter, setCategoryFilter] = useState('全部')
-  const [selectedRole, setSelectedRole] = useState<RoleItem | null>(null)
-
-  const totalUsers = roles.reduce((s, r) => s + r.userCount, 0)
-  const filtered = categoryFilter === '全部' ? roles : roles.filter(r => r.category === categoryFilter)
-
-  const levelHierarchy = [
-    { label: '省级', roles: ['R002'], color: 'bg-blue-500' },
-    { label: '市级', roles: ['R003', 'R006'], color: 'bg-indigo-500' },
-    { label: '县级', roles: ['R004'], color: 'bg-gov-500' },
-    { label: '乡镇级', roles: ['R005'], color: 'bg-teal-500' },
-    { label: '企业/社会', roles: ['R007', 'R008', 'R009', 'R010', 'R011', 'R012'], color: 'bg-emerald-500' },
-  ]
-
-  return (
-    <div className="space-y-4">
-      {/* Stats */}
-      <div className="grid grid-cols-4 gap-4">
-        {[
-          { label: '业务角色总数', value: '12 类', sub: '覆盖全业务场景', color: 'text-gov-600', bg: 'bg-gov-50' },
-          { label: '授权层级', value: '5 级', sub: '省—市—县—乡—企业/社会', color: 'text-blue-600', bg: 'bg-blue-50' },
-          { label: '注册用户总数', value: `${(totalUsers / 10000).toFixed(1)}万`, sub: '各角色合计', color: 'text-emerald-600', bg: 'bg-emerald-50' },
-          { label: '权限配置完成率', value: '100%', sub: '全部角色已配置', color: 'text-amber-600', bg: 'bg-amber-50' },
-        ].map(s => (
-          <div key={s.label} className={`card p-4 ${s.bg}`}>
-            <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
-            <div className="text-sm text-gray-600 mt-1">{s.label}</div>
-            <div className={`text-xs ${s.color} mt-1`}>{s.sub}</div>
+      {subtab === '机构档案' && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { label: '管理科室数', value: '12', sub: '含直属机构', color: 'text-gov-600', bg: 'bg-gov-50' },
+              { label: '在编人员', value: '285', sub: '全局合计', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+              { label: '信息化培训需求', value: `${trainingPlan.reduce((s, t) => s + t.staff, 0)}`, sub: 'AI预测待培训', color: 'text-amber-600', bg: 'bg-amber-50' },
+              { label: '平均信息化技能', value: '76.3', sub: '全局综合评分', color: 'text-blue-600', bg: 'bg-blue-50' },
+            ].map(s => (
+              <div key={s.label} className={`card p-4 ${s.bg}`}>
+                <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
+                <div className="text-sm text-gray-600 mt-1">{s.label}</div>
+                <div className={`text-xs ${s.color} mt-1`}>{s.sub}</div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* 5-level hierarchy */}
-      <div className="card p-4">
-        <div className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-          <Shield size={14} className="text-gov-500" />5 级分层授权架构
-        </div>
-        <div className="flex items-stretch gap-2">
-          {/* 系统管理员 special */}
-          <div className="flex flex-col items-center gap-1 w-24 shrink-0">
-            <div className="w-full p-2 rounded-lg border-2 border-red-200 bg-red-50 text-center">
-              <div className="text-[10px] font-bold text-red-600 mb-0.5">R001</div>
-              <div className="text-xs font-semibold text-red-700">系统管理员</div>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="col-span-2 card">
+              <div className="card-header">
+                <FilterBar searchPlaceholder="搜索科室名称..." onExport={() => {}} onRefresh={() => {}} />
+              </div>
+              <DataTable
+                columns={[
+                  { key: 'id', title: '编号', width: 80 },
+                  { key: 'name', title: '科室名称', render: (v: string) => <span className="font-semibold text-sm">{v}</span> },
+                  { key: 'head', title: '负责人', render: (v: string, row: any) => (
+                    <div><div className="text-sm">{v}</div><div className="text-xs text-gray-400">{row.headTitle}</div></div>
+                  )},
+                  { key: 'staff', title: '人员数', align: 'center' as const },
+                  { key: 'systemsUsed', title: '使用系统', align: 'center' as const },
+                  { key: 'avgSkill', title: '平均技能分', render: (v: number) => (
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-14 bg-gray-100 rounded-full h-1.5"><div className={`h-1.5 rounded-full ${v >= 85 ? 'bg-emerald-500' : v >= 70 ? 'bg-gov-500' : 'bg-amber-500'}`} style={{ width: `${v}%` }} /></div>
+                      <span className="text-xs font-medium">{v}</span>
+                    </div>
+                  )},
+                  { key: 'itLevel', title: '信息化水平', render: (v: string) => <StatusBadge label={v} variant={v === '优秀' ? 'success' : v === '良好' ? 'info' : 'warning'} /> },
+                  { key: 'trainingDue', title: '待培训人数', render: (v: number) => (
+                    <span className={v > 0 ? 'text-amber-600 font-semibold' : 'text-gray-400'}>{v > 0 ? `${v} 人` : '—'}</span>
+                  )},
+                ]}
+                data={departments} rowKey="id" onRowClick={setSelectedDept}
+              />
             </div>
-            <div className="text-[10px] text-gray-400 text-center">系统级</div>
-          </div>
-          <div className="flex items-center text-gray-300 text-lg font-light">→</div>
-          {/* 5 levels */}
-          {levelHierarchy.map((lvl, i) => (
-            <React.Fragment key={lvl.label}>
-              <div className="flex-1 min-w-0">
-                <div className={`h-1 ${lvl.color} rounded-full mb-2`} />
-                <div className="text-[10px] font-semibold text-gray-500 mb-1.5 text-center">{lvl.label}</div>
-                <div className="flex flex-wrap gap-1 justify-center">
-                  {lvl.roles.map(rid => {
-                    const r = roles.find(x => x.id === rid)!
-                    return (
-                      <button key={rid} onClick={() => setSelectedRole(r)}
-                        className={`text-[10px] px-1.5 py-1 rounded border ${r.badgeColor} hover:opacity-80 transition-opacity font-medium`}>
-                        {rid} {r.name}
-                      </button>
-                    )
-                  })}
+
+            <div className="space-y-4">
+              <div className="card p-4">
+                <div className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2"><TrendingUp size={14} className="text-gov-500" />全局信息化技能分布</div>
+                <ResponsiveContainer width="100%" height={170}>
+                  <RadarChart data={skillRadarData}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10 }} />
+                    <Radar dataKey="A" stroke="#0052CC" fill="#0052CC" fillOpacity={0.2} />
+                    <Tooltip />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="card p-4">
+                <div className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2"><Sparkles size={13} className="text-indigo-500" />AI培训需求预测</div>
+                <div className="space-y-2">
+                  {trainingPlan.map((t, i) => (
+                    <div key={i} className="p-2.5 rounded bg-gray-50 border border-gray-100 text-xs">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-gray-700">{t.dept}</span>
+                        <span className={`px-1.5 py-0.5 rounded text-[11px] font-medium ${t.urgency === '紧急' ? 'bg-red-100 text-red-700' : t.urgency === '本季度' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-600'}`}>{t.urgency}</span>
+                      </div>
+                      <div className="text-gray-500 mt-0.5">{t.course} · {t.staff}人</div>
+                      <div className="flex items-center gap-1 mt-1 text-indigo-500"><Sparkles size={9} /><span>AI预测 · 建议{t.date}完成</span></div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              {i < levelHierarchy.length - 1 && <div className="flex items-start pt-4 text-gray-300 text-sm font-light">→</div>}
-            </React.Fragment>
-          ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Category filter */}
-      <div className="flex items-center gap-2 flex-wrap">
-        {categoryFilters.map(f => {
-          const cnt = f.key === '全部' ? 12 : roles.filter(r => r.category === f.key).length
-          return (
-            <button key={f.key} onClick={() => setCategoryFilter(f.key)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                categoryFilter === f.key
-                  ? 'bg-gov-600 text-white border-gov-600 shadow-sm'
-                  : 'bg-white text-gray-600 border-gray-200 hover:border-gov-400 hover:text-gov-600'
-              }`}>
-              {f.label}
-              <span className={`ml-1.5 px-1 py-0.5 rounded text-[10px] font-bold ${categoryFilter === f.key ? 'bg-white/20' : 'bg-gray-100'}`}>{cnt}</span>
-            </button>
-          )
-        })}
-      </div>
+      {subtab === '人员技能' && (
+        <div className="space-y-4">
+          <div className="card">
+            <div className="card-header">
+              <FilterBar searchPlaceholder="搜索人员姓名/科室..."
+                filters={[
+                  { label: '科室', options: [{value:'全部',label:'全部'},...departments.map(d => ({value:d.name,label:d.name}))], value: '全部', onChange: () => {} },
+                  { label: '风险', options: [{value:'全部',label:'全部'},{value:'低',label:'低'},{value:'中',label:'中'},{value:'高',label:'高'}], value: '全部', onChange: () => {} },
+                ]}
+                onExport={() => {}}
+              />
+            </div>
+            <DataTable
+              columns={[
+                { key: 'id', title: '工号', width: 80 },
+                { key: 'name', title: '姓名', render: (v: string, row: any) => (
+                  <div><div className="font-semibold">{v}</div><div className="text-xs text-gray-400">{row.title}</div></div>
+                )},
+                { key: 'dept', title: '所在科室' },
+                { key: 'age', title: '年龄', align: 'center' as const },
+                { key: 'skillScore', title: 'AI技能评分', render: (v: number) => (
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-16 bg-gray-100 rounded-full h-1.5"><div className={`h-1.5 rounded-full ${v >= 85 ? 'bg-emerald-500' : v >= 70 ? 'bg-gov-500' : 'bg-amber-500'}`} style={{ width: `${v}%` }} /></div>
+                    <span className={`text-xs font-bold ${v >= 85 ? 'text-emerald-600' : v >= 70 ? 'text-gov-600' : 'text-amber-600'}`}>{v}</span>
+                  </div>
+                )},
+                { key: 'trainingHours', title: '培训学时(年)', render: (v: number) => (
+                  <span className={v < 16 ? 'text-red-600 font-semibold' : 'text-gray-600'}>{v} 课时</span>
+                )},
+                { key: 'certCount', title: '持证数量', align: 'center' as const },
+                { key: 'aiNeed', title: 'AI培训建议', render: (v: string) => v === '无' ? <span className="text-gray-300 text-xs">—</span> : (
+                  <div className="flex items-center gap-1 text-xs text-amber-600"><AlertTriangle size={11} className="shrink-0" />{v}</div>
+                )},
+                { key: 'riskLevel', title: '能力风险', render: (v: string) => <RiskBadge level={v as any} /> },
+                { key: 'lastTraining', title: '最近培训日期' },
+              ]}
+              data={staffList} rowKey="id" onRowClick={setSelectedStaff}
+            />
+          </div>
+        </div>
+      )}
 
-      {/* Role cards grid */}
-      <div className="grid grid-cols-4 gap-3">
-        {filtered.map(role => (
-          <button key={role.id} onClick={() => setSelectedRole(role)}
-            className={`card p-4 text-left border-2 ${role.cardColor} hover:shadow-md transition-all group`}>
-            <div className="flex items-start justify-between mb-2">
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded border ${role.badgeColor}`}>{role.id}</span>
-              <span className="text-[10px] text-gray-400">{role.level}</span>
-            </div>
-            <div className="text-sm font-semibold text-gray-800 mb-1.5 group-hover:text-gov-700">{role.name}</div>
-            <div className="text-[11px] text-gray-500 leading-relaxed line-clamp-2 mb-3">{role.description}</div>
-            <div className="flex flex-wrap gap-1 mb-3">
-              {role.modules.slice(0, 3).map(m => (
-                <span key={m} className="text-[10px] px-1.5 py-0.5 bg-white/70 border border-gray-200 rounded text-gray-600">{m}</span>
-              ))}
-              {role.modules.length > 3 && (
-                <span className="text-[10px] px-1.5 py-0.5 bg-white/70 border border-gray-200 rounded text-gray-400">+{role.modules.length - 3}</span>
-              )}
-            </div>
-            <div className="flex items-center justify-between pt-2 border-t border-white/60">
-              <div className="flex items-center gap-3 text-[10px]">
-                {[
-                  { label: '增', ok: role.canCreate },
-                  { label: '改', ok: role.canEdit },
-                  { label: '删', ok: role.canDelete },
-                  { label: '查', ok: role.canQuery },
-                ].map(p => (
-                  <span key={p.label} className={`font-medium ${p.ok ? 'text-emerald-600' : 'text-gray-300'}`}>{p.label}</span>
-                ))}
+      {subtab === '系统监控' && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { label: '系统总数', value: '8', sub: '在线运行', color: 'text-gov-600', bg: 'bg-gov-50' },
+              { label: '综合在线率', value: '99.86%', sub: '近30天', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+              { label: '活跃用户', value: '590', sub: '今日登录', color: 'text-blue-600', bg: 'bg-blue-50' },
+              { label: '待处理告警', value: '3', sub: '需关注', color: 'text-amber-600', bg: 'bg-amber-50' },
+            ].map(s => (
+              <div key={s.label} className={`card p-4 ${s.bg}`}>
+                <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
+                <div className="text-sm text-gray-600 mt-1">{s.label}</div>
+                <div className={`text-xs ${s.color} mt-1`}>{s.sub}</div>
               </div>
-              <span className="text-[10px] text-gray-400 font-medium">
-                {role.userCount > 0 ? `${role.userCount.toLocaleString()}人` : '不限'}
-              </span>
+            ))}
+          </div>
+          <div className="card">
+            <div className="card-header">
+              <div className="card-title flex items-center gap-2"><Activity size={14} className="text-gov-500" />系统运行状态监控</div>
+              <div className="flex items-center gap-1.5 text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                实时监控
+              </div>
             </div>
-          </button>
-        ))}
-      </div>
+            <DataTable
+              columns={[
+                { key: 'name', title: '系统名称', render: (v: string) => <span className="font-medium">{v}</span> },
+                { key: 'uptime', title: '在线率(%)', render: (v: number) => (
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-16 bg-gray-100 rounded-full h-1.5"><div className={`h-1.5 rounded-full ${v >= 99.9 ? 'bg-emerald-500' : 'bg-amber-500'}`} style={{ width: `${Math.min(100, v)}%` }} /></div>
+                    <span className="text-xs font-medium">{v}</span>
+                  </div>
+                )},
+                { key: 'avgResp', title: '平均响应(s)', render: (v: number) => (
+                  <span className={v > 1 ? 'text-amber-600 font-medium' : 'text-gray-600'}>{v}s</span>
+                )},
+                { key: 'activeUsers', title: '活跃用户', align: 'center' as const },
+                { key: 'alerts', title: '告警数', render: (v: number) => (
+                  <span className={v > 0 ? 'text-red-600 font-bold' : 'text-gray-300'}>{v > 0 ? v : '—'}</span>
+                )},
+                { key: 'status', title: '运行状态', render: (v: string) => (
+                  <div className="flex items-center gap-1.5">
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${v === '正常' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
+                    <StatusBadge label={v} variant={v === '正常' ? 'success' : 'warning'} />
+                  </div>
+                )},
+              ]}
+              data={sysMonitor} rowKey="name"
+            />
+          </div>
+        </div>
+      )}
 
-      {/* Role Detail Modal */}
-      <Modal open={!!selectedRole} onClose={() => setSelectedRole(null)}
-        title={selectedRole ? `${selectedRole.id} · ${selectedRole.name}` : ''}
-        subtitle={selectedRole ? `${selectedRole.level} · ${selectedRole.category}` : ''}
-        width="lg"
-        footer={
-          <>
-            <button className="btn-secondary" onClick={() => setSelectedRole(null)}>关闭</button>
-            <button className="btn-primary"><Settings size={13} />配置权限</button>
-          </>
-        }>
-        {selectedRole && (
+      {/* Dept Detail Modal */}
+      <Modal open={!!selectedDept} onClose={() => setSelectedDept(null)} title={selectedDept?.name ?? ''} subtitle={`负责人：${selectedDept?.head} ${selectedDept?.headTitle}`} width="lg"
+        footer={<><button className="btn-secondary" onClick={() => setSelectedDept(null)}>关闭</button><button className="btn-primary"><Sparkles size={13} />AI技能评估</button></>}>
+        {selectedDept && (
           <div className="flex gap-5">
             <div className="flex-1 space-y-4">
-              <DetailSection title="角色基本信息">
+              <DetailSection title="科室基本信息">
                 <FieldGrid cols={3}>
-                  <FieldItem label="角色编码" value={<span className={`px-2 py-0.5 rounded border text-xs font-bold ${selectedRole.badgeColor}`}>{selectedRole.id}</span>} />
-                  <FieldItem label="角色名称" value={selectedRole.name} highlight />
-                  <FieldItem label="授权层级" value={selectedRole.level} />
-                  <FieldItem label="所属类别" value={selectedRole.category} />
-                  <FieldItem label="注册用户数" value={selectedRole.userCount > 0 ? `${selectedRole.userCount.toLocaleString()} 人` : '公众用户（不限）'} highlight />
-                  <FieldItem label="权限状态" value={<StatusBadge label="已激活" variant="success" size="md" />} />
-                  <FieldItem label="角色描述" value={selectedRole.description} />
+                  <FieldItem label="科室名称" value={selectedDept.name} highlight />
+                  <FieldItem label="科室负责人" value={`${selectedDept.head}（${selectedDept.headTitle}）`} />
+                  <FieldItem label="联系电话" value={selectedDept.phone} />
+                  <FieldItem label="在编人员" value={`${selectedDept.staff} 人`} />
+                  <FieldItem label="使用系统数" value={`${selectedDept.systemsUsed} 套`} />
+                  <FieldItem label="信息化水平" value={<StatusBadge label={selectedDept.itLevel} variant={selectedDept.itLevel === '优秀' ? 'success' : selectedDept.itLevel === '良好' ? 'info' : 'warning'} size="md" />} />
+                  <FieldItem label="职能职责" value={selectedDept.responsibilities} />
+                  <FieldItem label="平均技能评分" value={`${selectedDept.avgSkill} 分`} highlight />
+                  <FieldItem label="待培训人数" value={selectedDept.trainingDue > 0 ? `${selectedDept.trainingDue} 人` : '无需培训'} />
                 </FieldGrid>
               </DetailSection>
-
-              <DetailSection title="可访问功能模块">
-                <div className="flex flex-wrap gap-2">
-                  {selectedRole.modules.map(m => (
-                    <div key={m} className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-medium ${selectedRole.cardColor}`}>
-                      <CheckCircle size={11} className="text-emerald-500 shrink-0" />
-                      {m}
-                    </div>
-                  ))}
-                </div>
-              </DetailSection>
-
-              <DetailSection title="数据操作权限">
-                <div className="grid grid-cols-4 gap-3">
+              <DetailSection title="信息化能力评估">
+                <div className="grid grid-cols-2 gap-2">
                   {[
-                    { label: '新增', key: 'canCreate' as const, icon: <Plus size={16} /> },
-                    { label: '修改', key: 'canEdit' as const, icon: <Settings size={16} /> },
-                    { label: '删除', key: 'canDelete' as const, icon: <AlertTriangle size={16} /> },
-                    { label: '查询', key: 'canQuery' as const, icon: <Search size={16} /> },
-                  ].map(p => (
-                    <div key={p.label} className={`p-3 rounded-lg border text-center ${selectedRole[p.key] ? 'bg-emerald-50 border-emerald-200' : 'bg-gray-50 border-gray-200'}`}>
-                      <div className={`flex justify-center mb-1.5 ${selectedRole[p.key] ? 'text-emerald-500' : 'text-gray-300'}`}>{p.icon}</div>
-                      <div className={`text-xs font-semibold ${selectedRole[p.key] ? 'text-emerald-700' : 'text-gray-400'}`}>{p.label}</div>
-                      <div className={`text-[10px] mt-0.5 ${selectedRole[p.key] ? 'text-emerald-500' : 'text-gray-300'}`}>{selectedRole[p.key] ? '已授权' : '无权限'}</div>
+                    { label: '系统操作规范', ok: selectedDept.avgSkill >= 70 },
+                    { label: '信息安全意识', ok: selectedDept.avgSkill >= 65 },
+                    { label: '数据录入质量', ok: selectedDept.avgSkill >= 75 },
+                    { label: '业务系统熟练度', ok: selectedDept.itLevel !== '不合格' },
+                    { label: '年度培训达标', ok: selectedDept.trainingDue === 0 },
+                    { label: '系统应用覆盖', ok: selectedDept.systemsUsed >= 4 },
+                  ].map((c, i) => (
+                    <div key={i} className={`flex items-center gap-2 p-2.5 rounded text-xs ${c.ok ? 'bg-emerald-50 border border-emerald-100 text-emerald-700' : 'bg-amber-50 border border-amber-100 text-amber-700'}`}>
+                      {c.ok ? <CheckCircle size={13} /> : <AlertTriangle size={13} />}
+                      <span className="font-medium">{c.label}</span>
                     </div>
                   ))}
                 </div>
               </DetailSection>
             </div>
-            <div className="w-56 shrink-0">
-              <AIPanel title="AI 权限分析" items={[
-                { label: '角色定位', value: `${selectedRole.name}属于${selectedRole.category}，在5级授权体系中处于${selectedRole.level}，${selectedRole.userCount > 0 ? `当前有 ${selectedRole.userCount.toLocaleString()} 名用户持有该角色` : '面向社会公众开放'}`, type: 'info' },
-                { label: '权限范围', value: `共授权 ${selectedRole.modules.length} 个功能模块，数据操作权限：${[selectedRole.canCreate && '新增', selectedRole.canEdit && '修改', selectedRole.canDelete && '删除', selectedRole.canQuery && '查询'].filter(Boolean).join('、')}`, type: selectedRole.canDelete ? 'warning' : 'success' },
-                { label: '安全建议', value: selectedRole.canDelete ? '该角色拥有删除权限，建议开启操作日志审计，并定期复查权限分配' : '该角色权限配置合理，符合最小权限原则', type: selectedRole.canDelete ? 'warning' : 'success' },
+            <div className="w-60 shrink-0">
+              <AIPanel title="AI 能力评估" items={[
+                { label: 'AI技能综合评分', value: <div className="text-2xl font-bold text-indigo-300">{selectedDept.avgSkill}<span className="text-sm ml-1">/ 100</span></div>, type: selectedDept.avgSkill >= 85 ? 'success' : selectedDept.avgSkill >= 70 ? 'info' : 'warning' },
+                { label: '培训需求预测', value: selectedDept.trainingDue > 0 ? `AI预测本季度需对 ${selectedDept.trainingDue} 名人员开展信息化培训，建议优先安排系统操作强化课程` : '本科室人员培训均已达标，暂无紧急培训需求', type: selectedDept.trainingDue > 0 ? 'warning' : 'success' },
+                { label: '信息化提升建议', value: selectedDept.avgSkill < 75 ? '建议开展专项培训，重点提升数据分析和系统操作能力' : '信息化能力良好，建议持续跟进新功能培训', type: selectedDept.avgSkill < 75 ? 'warning' : 'success' },
               ]} />
             </div>
           </div>
         )}
       </Modal>
-    </div>
-  )
-}
 
-// ────── Personnel Archive ──────
-
-function PersonnelArchive() {
-  const [selectedStaff, setSelectedStaff] = useState<typeof staffList[0] | null>(null)
-
-  return (
-    <div className="space-y-4">
-      <div className="card">
-        <div className="card-header">
-          <FilterBar searchPlaceholder="搜索人员姓名/科室..."
-            filters={[
-              { label: '科室', options: [{value:'全部',label:'全部'},...departments.map(d => ({value:d.name,label:d.name}))], value: '全部', onChange: () => {} },
-              { label: '风险', options: [{value:'全部',label:'全部'},{value:'低',label:'低'},{value:'中',label:'中'},{value:'高',label:'高'}], value: '全部', onChange: () => {} },
-            ]}
-            onExport={() => {}}
-          />
-        </div>
-        <DataTable
-          columns={[
-            { key: 'id', title: '工号', width: 80 },
-            { key: 'name', title: '姓名', render: (v: string, row: any) => (
-              <div><div className="font-semibold">{v}</div><div className="text-xs text-gray-400">{row.title}</div></div>
-            )},
-            { key: 'dept', title: '所在科室' },
-            { key: 'age', title: '年龄', align: 'center' as const },
-            { key: 'skillScore', title: 'AI技能评分', render: (v: number) => (
-              <div className="flex items-center gap-1.5">
-                <div className="w-16 bg-gray-100 rounded-full h-1.5"><div className={`h-1.5 rounded-full ${v >= 85 ? 'bg-emerald-500' : v >= 70 ? 'bg-gov-500' : 'bg-amber-500'}`} style={{ width: `${v}%` }} /></div>
-                <span className={`text-xs font-bold ${v >= 85 ? 'text-emerald-600' : v >= 70 ? 'text-gov-600' : 'text-amber-600'}`}>{v}</span>
-              </div>
-            )},
-            { key: 'trainingHours', title: '培训学时(年)', render: (v: number) => (
-              <span className={v < 16 ? 'text-red-600 font-semibold' : 'text-gray-600'}>{v} 课时</span>
-            )},
-            { key: 'certCount', title: '持证数量', align: 'center' as const },
-            { key: 'aiNeed', title: 'AI培训建议', render: (v: string) => v === '无' ? <span className="text-gray-300 text-xs">—</span> : (
-              <div className="flex items-center gap-1 text-xs text-amber-600"><AlertTriangle size={11} className="shrink-0" />{v}</div>
-            )},
-            { key: 'riskLevel', title: '能力风险', render: (v: string) => <RiskBadge level={v as any} /> },
-            { key: 'lastTraining', title: '最近培训日期' },
-          ]}
-          data={staffList} rowKey="id" onRowClick={setSelectedStaff}
-        />
-      </div>
-
+      {/* Staff Detail Modal */}
       <Modal open={!!selectedStaff} onClose={() => setSelectedStaff(null)} title={`人员档案 — ${selectedStaff?.name}`} subtitle={`${selectedStaff?.dept} · ${selectedStaff?.title}`} width="lg"
         footer={<><button className="btn-secondary" onClick={() => setSelectedStaff(null)}>关闭</button><button className="btn-primary"><BookOpen size={13} />安排培训</button></>}>
         {selectedStaff && (
@@ -571,63 +459,6 @@ function PersonnelArchive() {
           </div>
         )}
       </Modal>
-    </div>
-  )
-}
-
-// ────── System Monitor ──────
-
-function SystemMonitor() {
-  return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-4 gap-4">
-        {[
-          { label: '系统总数', value: '8', sub: '在线运行', color: 'text-gov-600', bg: 'bg-gov-50' },
-          { label: '综合在线率', value: '99.86%', sub: '近30天', color: 'text-emerald-600', bg: 'bg-emerald-50' },
-          { label: '活跃用户', value: '590', sub: '今日登录', color: 'text-blue-600', bg: 'bg-blue-50' },
-          { label: '待处理告警', value: '3', sub: '需关注', color: 'text-amber-600', bg: 'bg-amber-50' },
-        ].map(s => (
-          <div key={s.label} className={`card p-4 ${s.bg}`}>
-            <div className={`text-2xl font-bold ${s.color}`}>{s.value}</div>
-            <div className="text-sm text-gray-600 mt-1">{s.label}</div>
-            <div className={`text-xs ${s.color} mt-1`}>{s.sub}</div>
-          </div>
-        ))}
-      </div>
-      <div className="card">
-        <div className="card-header">
-          <div className="card-title flex items-center gap-2"><Activity size={14} className="text-gov-500" />系统运行状态监控</div>
-          <div className="flex items-center gap-1.5 text-xs text-emerald-600 bg-emerald-50 px-2 py-1 rounded">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            实时监控
-          </div>
-        </div>
-        <DataTable
-          columns={[
-            { key: 'name', title: '系统名称', render: (v: string) => <span className="font-medium">{v}</span> },
-            { key: 'uptime', title: '在线率(%)', render: (v: number) => (
-              <div className="flex items-center gap-1.5">
-                <div className="w-16 bg-gray-100 rounded-full h-1.5"><div className={`h-1.5 rounded-full ${v >= 99.9 ? 'bg-emerald-500' : 'bg-amber-500'}`} style={{ width: `${Math.min(100, v)}%` }} /></div>
-                <span className="text-xs font-medium">{v}</span>
-              </div>
-            )},
-            { key: 'avgResp', title: '平均响应(s)', render: (v: number) => (
-              <span className={v > 1 ? 'text-amber-600 font-medium' : 'text-gray-600'}>{v}s</span>
-            )},
-            { key: 'activeUsers', title: '活跃用户', align: 'center' as const },
-            { key: 'alerts', title: '告警数', render: (v: number) => (
-              <span className={v > 0 ? 'text-red-600 font-bold' : 'text-gray-300'}>{v > 0 ? v : '—'}</span>
-            )},
-            { key: 'status', title: '运行状态', render: (v: string) => (
-              <div className="flex items-center gap-1.5">
-                <div className={`w-2 h-2 rounded-full shrink-0 ${v === '正常' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
-                <StatusBadge label={v} variant={v === '正常' ? 'success' : 'warning'} />
-              </div>
-            )},
-          ]}
-          data={sysMonitor} rowKey="name"
-        />
-      </div>
     </div>
   )
 }
