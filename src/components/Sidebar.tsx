@@ -125,9 +125,6 @@ export const ROLES: RoleDef[] = [
   { id: 'R004', name: '县级管理员', level: '县级', category: '行政管理',
     description: '受理、审查、发证、档案管理',
     avatarBg: 'bg-sky-600', avatarText: '县', unit: 'XX县交通运输局', badgeColor: 'bg-sky-900/40 text-sky-200' },
-  { id: 'R005', name: '乡镇管理员', level: '乡镇级', category: '行政管理',
-    description: '源头管理、上门服务、信息采集',
-    avatarBg: 'bg-teal-600', avatarText: '镇', unit: 'XX镇交通站', badgeColor: 'bg-teal-900/40 text-teal-200' },
   { id: 'R006', name: '检查站执法人员', level: '执法级', category: '执法人员',
     description: '路面检查、违法处理、案件办理',
     avatarBg: 'bg-orange-500', avatarText: '执', unit: 'XX交通检查站', badgeColor: 'bg-orange-900/40 text-orange-200' },
@@ -160,18 +157,12 @@ interface RoleAccess {
 
 const ROLE_ACCESS: Record<string, RoleAccess> = {
   R001: { groups: ['dashboard', 'license', 'personnel', 'vehicle', 'certificate', 'enforcement', 'statistics', 'law', 'ai-service', 'sysadmin'] },
-  R002: { groups: ['dashboard', 'license', 'personnel', 'vehicle', 'certificate', 'statistics', 'law', 'ai-service', 'sysadmin'] },
+  R002: { groups: ['dashboard', 'license', 'personnel', 'vehicle', 'certificate', 'enforcement', 'statistics', 'law', 'ai-service', 'sysadmin'] },
   R003: { groups: ['dashboard', 'license', 'personnel', 'vehicle', 'certificate', 'statistics', 'ai-service'] },
   R004: { groups: ['dashboard', 'license', 'personnel', 'vehicle', 'certificate', 'statistics'],
     children: {
       license: ['freight', 'hazmat', 'passenger', 'station', 'passenger-station', 'repair', 'training'],
       personnel: ['personnel-list', 'license-issue', 'integrity'],
-    }
-  },
-  R005: { groups: ['dashboard', 'personnel', 'license'],
-    children: {
-      license: ['freight', 'passenger'],
-      personnel: ['personnel-list'],
     }
   },
   R006: { groups: ['dashboard', 'enforcement', 'personnel'],
@@ -377,7 +368,7 @@ export default function Sidebar({ active, onSelect, currentRole, onRoleChange }:
             <div className="max-h-72 overflow-y-auto py-1">
               {/* Group: 行政管理 */}
               {[
-                { label: '行政管理', ids: ['R001', 'R002', 'R003', 'R004', 'R005'] },
+                { label: '行政管理', ids: ['R001', 'R002', 'R003', 'R004'] },
                 { label: '执法人员', ids: ['R006'] },
                 { label: '市场主体', ids: ['R007', 'R008'] },
                 { label: '从业/机构/组织', ids: ['R009', 'R010', 'R011'] },
